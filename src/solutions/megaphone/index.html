@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Megaphone | Sentiric</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Megaphone AI | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <a href="/sentiric-playground/" class="back">← Geri</a>
-    <h1>📢 Megaphone</h1>
-    <textarea id="textInput" placeholder="Anons edilecek metni yazın..."></textarea>
-    <button id="broadcastBtn">YAYINLA</button>
+    <div class="terminal-layout">
+        <header>
+            <a href="/sentiric-playground/">← Lab</a>
+            <div class="brand">📢 MEGAPHONE <span class="badge">TX-ONLY</span></div>
+        </header>
+
+        <main class="console">
+            <div class="status-bar">
+                <span id="status-text">SİSTEM HAZIR</span>
+                <div class="signal-bars"><span></span><span></span><span></span></div>
+            </div>
+            
+            <textarea id="textInput" placeholder="Yayınlanacak anonsu buraya yazın..." spellcheck="false"></textarea>
+            
+            <div class="action-zone">
+                <button id="broadcastBtn">
+                    <span class="icon">⚡</span> ANONS GÖNDER
+                </button>
+            </div>
+        </main>
+
+        <section class="logs" id="history">
+            <div class="label">YAYIN GEÇMİŞİ</div>
+        </section>
+    </div>
     <script type="module" src="./main.ts"></script>
 </body>
 </html>

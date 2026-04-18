@@ -1,6 +1,6 @@
 // [ARCH-COMPLIANCE] SOP-01: Reactive SDK Bridge & Modern Observer UI
 declare const __SDK_URL__: string;
-declare const __SDK_VERSION__: string;
+// declare const __SDK_VERSION__: string;
 declare const __GATEWAY_URL__: string;
 declare const __DEFAULT_TENANT__: string;
 declare const __PG_VERSION__: string;

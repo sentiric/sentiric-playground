@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"><title>Persona Designer | Sentiric</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="designer-layout">
+        <section class="settings">
+            <h3>🎭 Karakter Ayarları</h3>
+            <label>Sistem Promptu</label>
+            <textarea id="sysPrompt">Sen yardımsever bir asistansın...</textarea>
+            <label>Ses Karakteri (TTS)</label>
+            <select id="voiceId">
+                <option value="omnivoice:female">Kurumsal Kadın</option>
+                <option value="omnivoice:male">Otoriter Erkek</option>
+            </select>
+            <button id="testBtn">TESTİ BAŞLAT</button>
+        </section>
+        <section class="preview">
+            <h3>🎧 Canlı Deneyim</h3>
+            <div id="chat"></div>
+        </section>
+    </div>
+    <script type="module" src="./main.ts"></script>
+</body>
+</html>

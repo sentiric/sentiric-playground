@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Silent Commander | Sentiric</title>
-  <script type="module" crossorigin src="/sentiric-playground/assets/silent-commander-DaZRWndV.js"></script>
-  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-adF_eKaD.js">
-  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/silent-commander-Dgg-OBZ1.css">
+    <meta charset="UTF-8"><title>Silent Commander | Sentiric Lab</title>
+  <script type="module" crossorigin src="/sentiric-playground/assets/silent-commander-Be_vzxNc.js"></script>
+  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-Cwtw1GUL.js">
+  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/silent-commander-C_tT18TB.css">
 </head>
 <body>
-    <header><a href="/sentiric-playground/">← Lab</a> 🥷 Silent Commander (IoT)</header>
-    <div class="console" id="cmdLog">> Waiting for voice command...</div>
+    <div class="commander-layout">
+        <header>
+            <a href="/sentiric-playground/">← Lab</a>
+            <div class="terminal-id">UNIT-01 // COMMANDER</div>
+        </header>
+
+        <main class="console-body">
+            <div id="cmd-output" class="output-stream">
+                <div class="sys-msg">> SYSTEM INITIALIZED...</div>
+                <div class="sys-msg">> WAITING FOR VOICE AUTHENTICATION...</div>
+            </div>
+            
+            <div class="control-center">
+                <div class="voice-indicator" id="v-meter"></div>
+                <button id="authBtn">KOMUT VER (MIC)</button>
+            </div>
+        </main>
+
+        <footer class="status-strip">
+            <span>SECURE LINK: ACTIVE</span>
+            <span>ENCRYPTION: AES-256</span>
+            <span id="ai-status">IDLE</span>
+        </footer>
+    </div>
 </body>
 </html>

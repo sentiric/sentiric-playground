@@ -1,109 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentiric OS | Innovation Lab</title>
     <style>
-      :root {
-        --bg: #09090b;
-        --card: #18181b;
-        --primary: #3b82f6;
-        --text: #f4f4f5;
-        --muted: #a1a1aa;
-      }
-      body {
-        font-family: system-ui, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        margin: 0;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .hero {
-        text-align: center;
-        margin-bottom: 4rem;
-      }
-      .hero h1 {
-        font-size: 3rem;
-        margin: 0;
-        color: var(--primary);
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        width: 100%;
-        max-width: 1000px;
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid #27272a;
-        padding: 1.5rem;
-        border-radius: 12px;
-        text-decoration: none;
-        color: inherit;
-        transition: 0.2s;
-      }
-      .card:hover {
-        border-color: var(--primary);
-        transform: translateY(-3px);
-      }
-      .card h3 {
-        margin: 0.5rem 0;
-      }
-      .card p {
-        color: var(--muted);
-        font-size: 0.9rem;
-        margin: 0;
-      }
+        :root { --bg: #09090b; --card: #18181b; --primary: #4f46e5; --text: #f4f4f5; --muted: #a1a1aa; --border: #27272a; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .hero { text-align: center; padding: 6rem 1rem; width: 100%; background: radial-gradient(circle at 50% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%); border-bottom: 1px solid var(--border); }
+        .hero h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; max-width: 1200px; padding: 4rem 2rem; box-sizing: border-box; }
+        .card { background: var(--card); border: 1px solid var(--border); padding: 2rem; border-radius: 1.25rem; text-decoration: none; color: inherit; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .card.locked { opacity: 0.5; cursor: not-allowed; border-style: dashed; }
+        .badge { position: absolute; top: 1rem; right: 1rem; font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 2rem; background: var(--border); color: var(--muted); text-transform: uppercase; }
+        .badge.active { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        .icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+        h3 { margin: 0.5rem 0; font-size: 1.4rem; color: #fff; }
+        p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.5; flex-grow: 1; }
+        .launch { margin-top: 1.5rem; color: var(--primary); font-weight: 600; font-size: 0.9rem; }
     </style>
-  </head>
-  <body>
-    <div class="hero">
-      <h1>Innovation Lab</h1>
-      <p>Sentiric OS için geliştirilen otonom yetenekler ve çözümler.</p>
-    </div>
-    <div class="grid" id="solutions-grid"></div>
+</head>
+<body>
+    <header class="hero">
+        <h1>Sentiric Lab.</h1>
+        <p>Geleceğin iletişim katmanını bugün test edin.</p>
+    </header>
+    <main class="grid" id="main-grid"></main>
 
     <script type="module">
-      // [ARCH-COMPLIANCE]: Bu liste, src/solutions altındaki klasör isimleriyle BİREBİR aynı olmalıdır.
-      const solutions = [
-        {
-          id: "cognitive",
-          title: "Cognitive Mirror",
-          icon: "🧠",
-          desc: "Bilişsel harita ve duygu analizi.",
-        },
-        {
-          id: "omni-chat",
-          title: "Omni-Chat",
-          icon: "💬",
-          desc: "Metin tabanlı hızlı AI sohbet.",
-        },
-        {
-          id: "interactive",
-          title: "Interactive Agent",
-          icon: "🤖",
-          desc: "Sesli asistan performans testi.",
-        },
-      ];
+        const solutions = [
+            { id: 'interactive-agent', title: 'Voice Agent', icon: '🤖', status: 'Active', desc: 'Sıfır gecikmeli, VAD ve Barge-in destekli akıllı sesli asistan.' },
+            { id: 'meeting-analyst', title: 'Meeting Analyst', icon: '👁️', status: 'Active', desc: 'Pasif dinleme, konuşmacı ayrıştırma ve duygu takibi.' },
+            { id: 'megaphone', title: 'Megaphone', icon: '📢', status: 'Active', desc: 'Yazıdan sese anlık yayın (Broadcast) terminali.' },
+            { id: 'omni-chat', title: 'Omni-Chat', icon: '💬', status: 'Active', desc: 'Metin tabanlı müşteri hizmetleri ve daktilo efekti.' },
+            { id: 'cognitive-mirror', title: 'Cognitive Mirror', icon: '🧠', status: 'Active', desc: 'Bilişsel haritalama ve otonom hafıza kartları vizyonu.' },
+            { id: 'vision-agent', title: 'Vision Agent', icon: '👁️‍🗨️', status: 'Research', desc: 'Multi-modal analiz. Fiziksel dünyayı gören asistan.' },
+            { id: 'meeting-secretary', title: 'Meeting Secretary', icon: '📝', status: 'Planning', desc: 'Toplantı notlarını CRM ve Slack\'e raporlayan otonom sekreter.' },
+            { id: 'agent-assist', title: 'Agent Assist', icon: '🎧', status: 'Planning', desc: 'Temsilciye canlı sufle veren ve bilgi fısıldayan sistem.' },
+            { id: 'silent-commander', title: 'Silent Commander', icon: '🥷', status: 'Planning', desc: 'Sadece sesli komutlarla IoT cihazlarını yöneten terminal.' }
+        ];
 
-      const grid = document.getElementById("solutions-grid");
-      solutions.forEach((s) => {
-        const card = document.createElement("a");
-        // Dizin bazlı temiz URL (index.html yazmaya gerek yok)
-        card.href = `./src/solutions/${s.id}/`;
-        card.className = "card";
-        card.innerHTML = `
-                <div style="font-size:2rem">${s.icon}</div>
+        const grid = document.getElementById('main-grid');
+        solutions.forEach(s => {
+            const isLocked = s.status !== 'Active';
+            const card = document.createElement(isLocked ? 'div' : 'a');
+            if(!isLocked) card.href = `./src/solutions/${s.id}/`;
+            card.className = `card ${isLocked ? 'locked' : ''}`;
+            card.innerHTML = `
+                <span class="badge ${s.status === 'Active' ? 'active' : ''}">${s.status}</span>
+                <span class="icon">${s.icon}</span>
                 <h3>${s.title}</h3>
                 <p>${s.desc}</p>
+                ${!isLocked ? '<div class="launch">Çözümü Başlat &rarr;</div>' : ''}
             `;
-        grid.appendChild(card);
-      });
+            grid.appendChild(card);
+        });
     </script>
-  </body>
+</body>
 </html>

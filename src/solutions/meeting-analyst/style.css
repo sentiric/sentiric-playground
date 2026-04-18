@@ -1,0 +1,28 @@
+body {
+  background: #09090b;
+  color: #fff;
+  font-family: system-ui;
+  padding: 2rem;
+}
+#analystLog {
+  margin-top: 2rem;
+  background: #18181b;
+  border: 1px solid #27272a;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  height: 300px;
+  overflow-y: auto;
+}
+#startBtn {
+  background: #10b981;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+.back {
+  color: #10b981;
+  text-decoration: none;
+}

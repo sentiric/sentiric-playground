@@ -1,4 +1,3 @@
-/* File: src/solutions/cognitive/style.css */
 :root {
   --bg: #09090b;
   --primary: #8b5cf6;
@@ -8,23 +7,24 @@ body {
   margin: 0;
   background: var(--bg);
   color: #fff;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui;
   height: 100vh;
   overflow: hidden;
+}
+.app-shell {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 header {
   padding: 1rem 2rem;
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  font-weight: bold;
 }
-.back-link {
+header a {
   color: var(--primary);
   text-decoration: none;
-  font-size: 0.8rem;
+  margin-right: 1rem;
 }
 .split-view {
   flex: 1;
@@ -35,7 +35,7 @@ header {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1rem;
 }
 .flow {
   border-right: 1px solid var(--border);
@@ -43,7 +43,6 @@ header {
 .scroll-area {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
 }
 .bubble {
   background: #18181b;
@@ -58,22 +57,26 @@ header {
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
 }
 .action-bar {
   padding: 1.5rem;
   border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  justify-content: center;
+  text-align: center;
 }
-.btn-primary {
+#toggleBtn {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 0.8rem 2.5rem;
+  padding: 0.8rem 2rem;
   border-radius: 2rem;
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
+}
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  background: var(--border);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
 }

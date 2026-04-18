@@ -1,38 +1,86 @@
-// [ARCH-COMPLIANCE] SOP-01: Connect UI to SDK v0.8.8 Robust States
-import { getSentiricClient } from "../../lib/sdk-provider";
-const btn = document.getElementById("micBtn")!;
-const log = document.getElementById("transcript")!;
+// [ARCH-COMPLIANCE] SOP-01: Voice Agent Core Implementation (v1.0)
+import {
+  getSentiricClient,
+  AppConfig,
+  injectVersionInfo,
+} from "../../lib/sdk-provider";
+
+const elements = {
+  btn: document.getElementById("micBtn") as HTMLButtonElement,
+  chat: document.getElementById("chat-box")!,
+  status: document.getElementById("status-tag")!,
+  shell: document.querySelector(".shell")!,
+};
+
 let client: any = null;
+let activeBubble: HTMLElement | null = null;
 
-btn.onclick = async () => {
-  if (client) {
-    client.stop();
-    client = null;
-    btn.classList.remove("active");
-    log.innerText = "Bağlantı kapatıldı.";
-    return;
-  }
+injectVersionInfo(document.body);
 
+async function startSession() {
   const SDK = await getSentiricClient();
+
   client = new SDK({
-    gatewayUrl: "wss://http-stream-gateway-service-sentiric.azmisahin.com/ws",
-    tenantId: "demo",
+    gatewayUrl: AppConfig.gatewayUrl,
+    tenantId: AppConfig.tenantId,
     onTranscript: (t: any) => {
-      log.innerText = t.text;
-      log.style.opacity = t.isFinal ? "1" : "0.6";
+      handleTranscript(t);
     },
     onError: (err: any) => {
-      console.error("SDK_ERR", err);
-      log.innerText = "❌ Bağlantı hatası!";
-      btn.classList.remove("active");
+      console.error("AGENT_ERROR", err);
+      updateStatus("HATA", "#ef4444");
+      stopSession();
     },
   });
 
   try {
     await client.start();
-    btn.classList.add("active");
-    log.innerText = "Dinliyor...";
-  } catch {
-    log.innerText = "❌ Mikrofon izni verilmedi.";
+    updateStatus("DİNLİYOR", "#10b981");
+    elements.btn.classList.add("active");
+  } catch (e) {
+    alert("Mikrofon izni gerekli!");
+    stopSession();
   }
+}
+
+function stopSession() {
+  if (client) client.stop();
+  client = null;
+  elements.btn.classList.remove("active");
+  elements.shell.classList.remove("ai-speaking");
+  updateStatus("ÇEVRİMDIŞI", "#a1a1aa");
+}
+
+function updateStatus(text: string, color: string) {
+  elements.status.innerText = text;
+  elements.status.style.background = `${color}22`;
+  elements.status.style.color = color;
+}
+
+function handleTranscript(t: any) {
+  const isUser = t.sender === "USER";
+
+  // AI konuşuyorsa görsel aura'yı aç
+  if (!isUser) elements.shell.classList.add("ai-speaking");
+  else elements.shell.classList.remove("ai-speaking");
+
+  if (!activeBubble || activeBubble.dataset.sender !== t.sender) {
+    activeBubble = document.createElement("div");
+    activeBubble.className = `bubble ${isUser ? "user" : "ai"}`;
+    activeBubble.dataset.sender = t.sender;
+    elements.chat.appendChild(activeBubble);
+  }
+
+  activeBubble.innerText = t.text;
+  activeBubble.classList.toggle("partial", !t.isFinal);
+
+  if (t.isFinal) {
+    activeBubble = null;
+    elements.chat.scrollTop = elements.chat.scrollHeight;
+  }
+}
+
+elements.btn.onclick = () => {
+  if (client) stopSession();
+  else startSession();
 };

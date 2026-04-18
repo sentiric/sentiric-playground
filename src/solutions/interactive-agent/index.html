@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Interactive Agent | Sentiric</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Agent | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="shell">
-        <header><a href="../../../index.html">← Geri</a> 🤖 Voice Agent</header>
+        <header>
+            <a href="/sentiric-playground/" class="back-link">← Lab</a>
+            <div class="title-group">
+                <h1>Interactive Agent</h1>
+                <span id="status-tag" class="tag">ÇEVRİMDIŞI</span>
+            </div>
+        </header>
+
         <main>
-            <div id="visualizer"></div>
-            <button id="micBtn">🎤</button>
-            <div id="transcript">...</div>
+            <div class="agent-visualizer">
+                <div class="core-circle" id="ai-circle">
+                    <div class="pulse"></div>
+                </div>
+                <button id="micBtn" title="Mikrofonu Aç/Kapat">🎤</button>
+            </div>
+            
+            <div class="transcript-container" id="chat-box">
+                <div class="welcome-msg">Sohbeti başlatmak için butona basın.</div>
+            </div>
         </main>
     </div>
     <script type="module" src="./main.ts"></script>

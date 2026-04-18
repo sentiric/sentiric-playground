@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-DJVeZdMt.js";import{t}from"./sdk-provider-Bvi5rI1s.js";var a=document.getElementById("cmdLog");!async function(){await new(await t())({gatewayUrl:"wss://http-stream-gateway-service-sentiric.azmisahin.com/ws",tenantId:"demo",systemPromptId:"PROMPT_COMMANDER",onTranscript:t=>{t.isFinal&&(a.innerHTML+=`<br>[EXEC]: ${t.text}`)}}).start()}();

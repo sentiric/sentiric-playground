@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"><title>Persona Designer | Sentiric</title>
+  <script type="module" crossorigin src="/sentiric-playground/assets/persona-designer-hzbOYvDP.js"></script>
+  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/modulepreload-polyfill-DJVeZdMt.js">
+  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-Bvi5rI1s.js">
+  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/persona-designer-U-rNaNR5.css">
+</head>
+<body>
+    <div class="designer-layout">
+        <section class="settings">
+            <h3>🎭 Karakter Ayarları</h3>
+            <label>Sistem Promptu</label>
+            <textarea id="sysPrompt">Sen yardımsever bir asistansın...</textarea>
+            <label>Ses Karakteri (TTS)</label>
+            <select id="voiceId">
+                <option value="omnivoice:female">Kurumsal Kadın</option>
+                <option value="omnivoice:male">Otoriter Erkek</option>
+            </select>
+            <button id="testBtn">TESTİ BAŞLAT</button>
+        </section>
+        <section class="preview">
+            <h3>🎧 Canlı Deneyim</h3>
+            <div id="chat"></div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+/* File: src/solutions/cognitive/style.css */
+:root {
+  --bg: #09090b;
+  --primary: #8b5cf6;
+  --border: #27272a;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.back-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.split-view {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+.pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+.flow {
+  border-right: 1px solid var(--border);
+}
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+.bubble {
+  background: #18181b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-left: 3px solid var(--primary);
+}
+.fact-card {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid #38bdf8;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+.action-bar {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -12,30 +12,25 @@ export const AppConfig = {
   sdkVersion: __SDK_VERSION__,
 };
 
+// [ARCH-COMPLIANCE] SOP-01: Auto-Cache-Busting via Versioning
 export async function getSentiricClient(): Promise<any> {
   try {
-    // URL'in sonuna timestamp ekleyerek cache-bursting yapıyoruz (Geliştirme aşaması için kritik)
-    const url = `${__SDK_URL__}?t=${Date.now()}`;
+    // Versiyon bilgisini URL'e ekleyerek browser cache'ini zorla yeniliyoruz
+    const url = `${__SDK_URL__}?v=${AppConfig.sdkVersion}`;
     // @ts-ignore
     const module = await import(/* @vite-ignore */ url);
 
-    console.log("📦 SDK_MODULE_LOADED", module);
-
-    // Named export veya Default export kontrolü
+    // Hem ES Module exportunu hem de window fallbackini kontrol et
     const Client =
-      module.SentiricStreamClient ||
-      module.default?.SentiricStreamClient ||
-      module.default;
+      module.SentiricStreamClient || (window as any).SentiricStreamClient;
 
     if (!Client) {
-      throw new Error(
-        "SentiricStreamClient bulunamadı. Export yapısını kontrol edin.",
-      );
+      throw new Error("SentiricStreamClient yüklenemedi. Bundle bozuk.");
     }
 
     return Client;
   } catch (error) {
-    console.error("FATAL: Failed to load Sentiric SDK from CDN", error);
+    console.error("FATAL_SDK_BRIDGE", error);
     throw error;
   }
 }

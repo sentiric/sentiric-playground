@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Cognitive Mirror | Sentiric</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Mirror | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="app-shell">
-        <header><a href="/sentiric-playground/">← Lab</a> 🧠 Cognitive Mirror</header>
+        <header>
+            <a href="/sentiric-playground/">← Lab</a> 
+            <div class="header-info">
+                <h1>Cognitive Mirror</h1>
+                <div id="connection-status" class="dot"></div>
+            </div>
+        </header>
+
         <main class="split-view">
-            <section class="pane flow">
-                <div class="pane-header">🎙️ BİLİNÇ AKIŞI</div>
+            <!-- Sol: Diyalog Akışı -->
+            <section class="pane stream">
+                <div class="label">🎙️ BİLİNÇ AKIŞI</div>
                 <div id="transcriptBox" class="scroll-area"></div>
             </section>
-            <section class="pane mind">
-                <div class="pane-header">🧠 BİLİŞSEL HAFIZA</div>
-                <div id="moodVal" class="badge">NEUTRAL</div>
-                <div id="memoryCards" class="scroll-area"></div>
+
+            <!-- Sağ: Bilişsel Hafıza ve Radar -->
+            <section class="pane mental-state">
+                <div class="label">🧠 BİLİŞSEL HAFIZA (REAL-TIME)</div>
+                
+                <div class="mood-radar">
+                    <div class="radar-circle" id="radar">
+                        <span id="moodVal">NEUTRAL</span>
+                    </div>
+                </div>
+
+                <div class="memory-grid" id="memoryCards">
+                    <!-- Kartlar buraya dinamik eklenecek -->
+                </div>
             </section>
         </main>
-        <footer class="action-bar"><button id="toggleBtn">SİSTEMİ BAŞLAT</button></footer>
+
+        <footer class="action-bar">
+            <button id="toggleBtn">SİSTEMİ BAŞLAT</button>
+        </footer>
     </div>
     <script type="module" src="./main.ts"></script>
 </body>

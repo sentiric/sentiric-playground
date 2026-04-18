@@ -1,8 +1,12 @@
 :root {
   --bg: #09090b;
-  --primary: #8b5cf6;
+  --panel: #111114;
   --border: #27272a;
+  --primary: #8b5cf6;
+  --deep: #06b6d4;
+  --angry: #ef4444;
 }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -15,17 +19,32 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: background 1s ease;
 }
+
 header {
   padding: 1rem 2rem;
   border-bottom: 1px solid var(--border);
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-header a {
-  color: var(--primary);
-  text-decoration: none;
-  margin-right: 1rem;
+header h1 {
+  font-size: 1.1rem;
+  margin: 0;
+  letter-spacing: 1px;
 }
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3f3f46;
+}
+.dot.active {
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+}
+
 .split-view {
   flex: 1;
   display: flex;
@@ -35,15 +54,65 @@ header a {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.5rem;
+  gap: 1rem;
 }
-.flow {
+.stream {
   border-right: 1px solid var(--border);
 }
+.label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #71717a;
+  letter-spacing: 2px;
+}
+
 .scroll-area {
   flex: 1;
   overflow-y: auto;
+  padding-right: 10px;
 }
+
+/* Bilişsel Radar */
+.mood-radar {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.radar-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  position: relative;
+  box-shadow: inset 0 0 20px var(--primary);
+}
+
+/* Hafıza Kartları */
+.memory-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.fact-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border-left: 4px solid var(--primary);
+  animation: slideIn 0.4s ease-out;
+}
+.fact-card small {
+  color: #71717a;
+  display: block;
+  margin-bottom: 4px;
+}
+
 .bubble {
   background: #18181b;
   padding: 1rem;
@@ -51,13 +120,7 @@ header a {
   margin-bottom: 1rem;
   border-left: 3px solid var(--primary);
 }
-.fact-card {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid #38bdf8;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
+
 .action-bar {
   padding: 1.5rem;
   border-top: 1px solid var(--border);
@@ -67,16 +130,24 @@ header a {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 3rem;
   border-radius: 2rem;
   cursor: pointer;
   font-weight: bold;
+  transition: 0.3s;
 }
-.badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 1rem;
-  background: var(--border);
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
+#toggleBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

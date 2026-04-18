@@ -17,25 +17,28 @@ let client: any = null;
 // Linter Temizliği & Gözlemci
 injectVersionInfo(document.body);
 
+// [ARCH-COMPLIANCE] SOP-01: Auto-reset status for Speak-Only mode
+// Gerçekten sesin yayınlanıp yayınlanmadıını doğrulamak daha iyi olur.
+let resetTimer: any = null;
+
 async function initMegaphone() {
   const SDK = await getSentiricClient();
   client = new SDK({
     gatewayUrl: AppConfig.gatewayUrl,
     tenantId: AppConfig.tenantId,
-    speakOnlyMode: true, // KRİTİK: STT/LLM Bypass
+    speakOnlyMode: true,
     onAudioReceived: () => {
       elements.status.innerText = "YAYINLANIYOR...";
       elements.status.style.color = "#fbbf24";
-    },
-    onTranscript: (t: any) => {
-      // AI konuşması bittiğinde status güncelle
-      if (t.sender === "AI" && t.isFinal) {
+
+      // Ses akışı devam ettiği sürece zamanlayıcıyı sıfırla
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
         elements.status.innerText = "YAYIN TAMAMLANDI";
         elements.status.style.color = "#10b981";
-      }
+      }, 2000);
     },
   });
-
   await client.start();
 }
 

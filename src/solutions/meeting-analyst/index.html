@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Meeting Analyst | Sentiric</title>
+    <meta charset="UTF-8"><title>Meeting Analyst | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <a href="/sentiric-playground/" class="back">← Geri</a>
-    <h1>👁️ Meeting Analyst</h1>
-    <p>Bu modda AI sadece dinler, konuşmacıları ayrıştırır.</p>
-    <button id="startBtn">DİNLEMEYİ BAŞLAT</button>
-    <div id="analystLog"></div>
+    <div class="analyst-layout">
+        <header>
+            <a href="/sentiric-playground/">← Lab</a>
+            <h1>Meeting Analyst</h1>
+            <span class="mode-badge">LISTEN-ONLY</span>
+        </header>
+
+        <main class="timeline" id="logBox">
+            <div class="center-status">
+                <button id="startBtn">DİNLEMEYİ BAŞLAT</button>
+                <p id="hint">AI bu modda sadece dinler ve konuşmacıları ayrıştırır.</p>
+            </div>
+        </main>
+    </div>
     <script type="module" src="./main.ts"></script>
 </body>
 </html>

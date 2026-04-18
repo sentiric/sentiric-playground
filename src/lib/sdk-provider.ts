@@ -1,7 +1,6 @@
-// File: src/lib/sdk-provider.ts
-
+// [ARCH-COMPLIANCE] SOP-01: Robust Module Resolution for CDN SDK
 declare const __SDK_URL__: string;
-declare const __SDK_VERSION__: string; // <--- Eklendi
+declare const __SDK_VERSION__: string;
 declare const __GATEWAY_URL__: string;
 declare const __DEFAULT_TENANT__: string;
 declare const __PG_VERSION__: string;
@@ -10,21 +9,37 @@ export const AppConfig = {
   gatewayUrl: __GATEWAY_URL__,
   tenantId: __DEFAULT_TENANT__,
   version: __PG_VERSION__,
-  sdkVersion: __SDK_VERSION__, // <--- Eklendi
+  sdkVersion: __SDK_VERSION__,
 };
 
 export async function getSentiricClient(): Promise<any> {
   try {
+    // URL'in sonuna timestamp ekleyerek cache-bursting yapıyoruz (Geliştirme aşaması için kritik)
+    const url = `${__SDK_URL__}?t=${Date.now()}`;
     // @ts-ignore
-    const module = await import(/* @vite-ignore */ __SDK_URL__);
-    return module.SentiricStreamClient;
+    const module = await import(/* @vite-ignore */ url);
+
+    console.log("📦 SDK_MODULE_LOADED", module);
+
+    // Named export veya Default export kontrolü
+    const Client =
+      module.SentiricStreamClient ||
+      module.default?.SentiricStreamClient ||
+      module.default;
+
+    if (!Client) {
+      throw new Error(
+        "SentiricStreamClient bulunamadı. Export yapısını kontrol edin.",
+      );
+    }
+
+    return Client;
   } catch (error) {
     console.error("FATAL: Failed to load Sentiric SDK from CDN", error);
     throw error;
   }
 }
 
-// Çözümlerin altına versiyon bilgisini basan yardımcı
 export function injectVersionInfo(container: HTMLElement) {
   const footer = document.createElement("div");
   footer.style.cssText =

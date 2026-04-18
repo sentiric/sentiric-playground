@@ -1,4 +1,4 @@
-// [ARCH-COMPLIANCE] SOP-01: Voice Agent Core Implementation (v1.0)
+// [ARCH-COMPLIANCE] SOP-01: Fix unused 'e' and verify constructor call
 import {
   getSentiricClient,
   AppConfig,
@@ -18,33 +18,41 @@ let activeBubble: HTMLElement | null = null;
 injectVersionInfo(document.body);
 
 async function startSession() {
-  const SDK = await getSentiricClient();
-
-  client = new SDK({
-    gatewayUrl: AppConfig.gatewayUrl,
-    tenantId: AppConfig.tenantId,
-    onTranscript: (t: any) => {
-      handleTranscript(t);
-    },
-    onError: (err: any) => {
-      console.error("AGENT_ERROR", err);
-      updateStatus("HATA", "#ef4444");
-      stopSession();
-    },
-  });
-
   try {
+    const ClientClass = await getSentiricClient();
+
+    // constructor çağrısı öncesi kontrol
+    client = new ClientClass({
+      gatewayUrl: AppConfig.gatewayUrl,
+      tenantId: AppConfig.tenantId,
+      onTranscript: (t: any) => {
+        handleTranscript(t);
+      },
+      onError: (err: any) => {
+        console.error("AGENT_ERROR", err);
+        updateStatus("HATA", "#ef4444");
+        stopSession();
+      },
+    });
+
     await client.start();
     updateStatus("DİNLİYOR", "#10b981");
     elements.btn.classList.add("active");
-  } catch (e) {
-    alert("Mikrofon izni gerekli!");
+  } catch (err) {
+    console.error("START_FAIL", err);
+    updateStatus("ERİŞİM HATASI", "#ef4444");
     stopSession();
   }
 }
 
 function stopSession() {
-  if (client) client.stop();
+  if (client) {
+    try {
+      client.stop();
+    } catch (err) {
+      console.warn("STOP_ERR", err);
+    }
+  }
   client = null;
   elements.btn.classList.remove("active");
   elements.shell.classList.remove("ai-speaking");
@@ -59,8 +67,6 @@ function updateStatus(text: string, color: string) {
 
 function handleTranscript(t: any) {
   const isUser = t.sender === "USER";
-
-  // AI konuşuyorsa görsel aura'yı aç
   if (!isUser) elements.shell.classList.add("ai-speaking");
   else elements.shell.classList.remove("ai-speaking");
 

@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Meeting Secretary | Sentiric</title>
+    <meta charset="UTF-8"><title>Meeting Secretary | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header><a href="/sentiric-playground/">← Lab</a> 📝 Meeting Secretary</header>
-    <main class="board">
-        <section class="minutes"><h3>📖 TUTANAK</h3><div id="transcript" class="scroll"></div></section>
-        <section class="actions"><h3>✅ AKSİYONLAR</h3><div id="actionList"></div></section>
-    </main>
+    <div class="secretary-shell">
+        <header>
+            <a href="/sentiric-playground/">← Lab</a>
+            <div class="meeting-meta">
+                <h1>Meeting Secretary</h1>
+                <span id="session-timer">00:00:00</span>
+            </div>
+            <button id="recordBtn">TOPLANTIYI BAŞLAT</button>
+        </header>
+
+        <main class="board">
+            <section class="minutes-pane">
+                <h3>📖 CANLI TUTANAK</h3>
+                <div id="transcript" class="content-scroll"></div>
+            </section>
+            
+            <section class="summary-pane">
+                <h3>✅ AKSİYONLAR VE ÖZET</h3>
+                <div id="actions" class="content-scroll">
+                    <div class="empty-state">Önemli kararlar burada listelenecek...</div>
+                </div>
+            </section>
+        </main>
+    </div>
     <script type="module" src="./main.ts"></script>
 </body>
 </html>

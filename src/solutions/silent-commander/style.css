@@ -1,0 +1,14 @@
+body {
+  background: #000;
+  color: #0f0;
+  font-family: "JetBrains Mono", monospace;
+  padding: 2rem;
+}
+.console {
+  background: #050505;
+  border: 1px solid #003300;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  height: 400px;
+  overflow-y: auto;
+}

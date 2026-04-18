@@ -1,0 +1,30 @@
+body {
+  background: #09090b;
+  color: #fff;
+  font-family: system-ui;
+  margin: 0;
+  padding: 2rem;
+}
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.suggestion-card {
+  background: #18181b;
+  border-left: 4px solid #facc15;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

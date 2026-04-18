@@ -9,8 +9,9 @@ async function initVision() {
     });
     video.srcObject = stream;
     status.innerText = "🔵 GÖRSEL AKIŞ AKTİF: AI dünyayı analiz ediyor...";
-  } catch (e) {
-    status.innerText = "❌ Kamera erişimi reddedildi.";
+  } catch (_e) {
+    // [FIX]: Unused variable 'e' replaced with '_e' to satisfy linter
+    status.innerText = "❌ Kamera erişimi reddedildi veya cihaz bulunamadı.";
   }
 }
 initVision();

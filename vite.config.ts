@@ -1,8 +1,10 @@
-// File: sentiric-playground/vite.config.ts
+// [ARCH-COMPLIANCE] SOP-01: Build-time Version Sync from Peer Dependency
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import { glob } from "glob";
+import fs from "fs"; // Eklendi
 import pkg from "./package.json";
+
 
 const getEntries = () => {
   const entries = { main: resolve(__dirname, "index.html") };
@@ -15,11 +17,21 @@ const getEntries = () => {
   return entries;
 };
 
+// SDK versiyonunu yan klasörden oku
+const getSdkVersion = () => {
+  try {
+    const sdkPkg = JSON.parse(fs.readFileSync(resolve(__dirname, "../sentiric-stream-sdk/package.json"), "utf-8"));
+    return sdkPkg.version;
+  } catch {
+    return "unknown";
+  }
+};
+
 export default defineConfig({
   base: "/sentiric-playground/",
   define: {
     __SDK_URL__: JSON.stringify("https://sentiric.github.io/sentiric-stream-sdk/stream-sdk.js"),
-    __SDK_VERSION__: JSON.stringify("0.8.10"),
+    __SDK_VERSION__: JSON.stringify(getSdkVersion()), // <--- ARTIK OTOMATİK!
     __GATEWAY_URL__: JSON.stringify(process.env.VITE_GATEWAY_URL || "wss://http-stream-gateway-service-sentiric.azmisahin.com/ws"),
     __DEFAULT_TENANT__: JSON.stringify("demo"),
     __PG_VERSION__: JSON.stringify(pkg.version)

@@ -18,8 +18,8 @@ const getEntries = () => {
 export default defineConfig({
   base: "/sentiric-playground/",
   define: {
-    // Merkezi Konfigürasyon ve Versiyon Bilgileri
     __SDK_URL__: JSON.stringify("https://sentiric.github.io/sentiric-stream-sdk/stream-sdk.js"),
+    __SDK_VERSION__: JSON.stringify("0.8.8"), // <--- SDK versiyonunu buraya ekledik
     __GATEWAY_URL__: JSON.stringify(process.env.VITE_GATEWAY_URL || "wss://http-stream-gateway-service-sentiric.azmisahin.com/ws"),
     __DEFAULT_TENANT__: JSON.stringify("demo"),
     __PG_VERSION__: JSON.stringify(pkg.version)

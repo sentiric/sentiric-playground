@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Silent Commander | Sentiric</title>
+    <meta charset="UTF-8"><title>Silent Commander | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header><a href="/sentiric-playground/">← Lab</a> 🥷 Silent Commander (IoT)</header>
-    <div class="console" id="cmdLog">> Waiting for voice command...</div>
+    <div class="commander-layout">
+        <header>
+            <a href="/sentiric-playground/">← Lab</a>
+            <div class="terminal-id">UNIT-01 // COMMANDER</div>
+        </header>
+
+        <main class="console-body">
+            <div id="cmd-output" class="output-stream">
+                <div class="sys-msg">> SYSTEM INITIALIZED...</div>
+                <div class="sys-msg">> WAITING FOR VOICE AUTHENTICATION...</div>
+            </div>
+            
+            <div class="control-center">
+                <div class="voice-indicator" id="v-meter"></div>
+                <button id="authBtn">KOMUT VER (MIC)</button>
+            </div>
+        </main>
+
+        <footer class="status-strip">
+            <span>SECURE LINK: ACTIVE</span>
+            <span>ENCRYPTION: AES-256</span>
+            <span id="ai-status">IDLE</span>
+        </footer>
+    </div>
     <script type="module" src="./main.ts"></script>
 </body>
 </html>

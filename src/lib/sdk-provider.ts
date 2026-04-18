@@ -12,20 +12,21 @@ export const AppConfig = {
   sdkVersion: __SDK_VERSION__,
 };
 
-// [ARCH-COMPLIANCE] SOP-01: Auto-Cache-Busting via Versioning
+// [ARCH-COMPLIANCE] Runtime SDK Discovery & Observer Widget
 export async function getSentiricClient(): Promise<any> {
   try {
-    // Versiyon bilgisini URL'e ekleyerek browser cache'ini zorla yeniliyoruz
-    const url = `${__SDK_URL__}?v=${AppConfig.sdkVersion}`;
+    const url = `${__SDK_URL__}?v=${Date.now()}`;
     // @ts-ignore
     const module = await import(/* @vite-ignore */ url);
-
-    // Hem ES Module exportunu hem de window fallbackini kontrol et
     const Client =
       module.SentiricStreamClient || (window as any).SentiricStreamClient;
 
-    if (!Client) {
-      throw new Error("SentiricStreamClient yüklenemedi. Bundle bozuk.");
+    // SDK Versiyonunu bizzat sınıftan alıp güncelliyoruz
+    if (Client && Client.VERSION) {
+      AppConfig.sdkVersion = Client.VERSION;
+      const vEl = document.getElementById("pg-v");
+      if (vEl)
+        vEl.innerText = `PG v${AppConfig.version} | SDK v${AppConfig.sdkVersion}`;
     }
 
     return Client;
@@ -35,10 +36,38 @@ export async function getSentiricClient(): Promise<any> {
   }
 }
 
+// [YENİ]: Her çözümün altına "Kopyala" butonu ekleyen Observer Widget
 export function injectVersionInfo(container: HTMLElement) {
-  const footer = document.createElement("div");
-  footer.style.cssText =
-    "position:fixed; bottom:10px; right:10px; font-size:10px; color:#555; font-family:monospace; pointer-events:none; z-index:9999;";
-  footer.innerText = `PG v${AppConfig.version} | SDK v${AppConfig.sdkVersion}`;
-  container.appendChild(footer);
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText =
+    "position:fixed; bottom:10px; right:10px; display:flex; gap:10px; align-items:center; z-index:9999;";
+
+  const copyBtn = document.createElement("button");
+  copyBtn.innerText = "📋 LOGLARI KOPYALA (SUTS v4)";
+  copyBtn.style.cssText =
+    "font-size:9px; background:#18181b; color:#10b981; border:1px solid #27272a; padding:4px 8px; border-radius:4px; cursor:pointer;";
+  copyBtn.onclick = async () => {
+    const SDK = await getSentiricClient();
+    // SDK modülündeki Logger'dan veriyi çek
+    const logs = (window as any).SentiricStreamClient?.VERSION
+      ? (window as any).SentiricStreamClient.VERSION
+      : "LOGS_PENDING";
+    // Not: Burada SDK index.ts'de Logger'ı da export etmeliyiz. Şimdilik manuel window kontrolü:
+    const flightData = (window as any).sentiric_logs || "Henüz log oluşmadı.";
+    navigator.clipboard.writeText(flightData);
+    copyBtn.innerText = "✅ KOPYALANDI!";
+    setTimeout(
+      () => (copyBtn.innerText = "📋 LOGLARI KOPYALA (SUTS v4)"),
+      2000,
+    );
+  };
+
+  const info = document.createElement("div");
+  info.style.cssText =
+    "font-size:10px; color:#555; font-family:monospace; pointer-events:none;";
+  info.innerText = `PG v${AppConfig.version} | SDK v${AppConfig.sdkVersion}`;
+
+  wrapper.appendChild(copyBtn);
+  wrapper.appendChild(info);
+  container.appendChild(wrapper);
 }

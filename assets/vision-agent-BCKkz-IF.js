@@ -1,1 +1,0 @@
-import"./modulepreload-polyfill-DJVeZdMt.js";var e=document.getElementById("webcam"),a=document.getElementById("status");!async function(){try{e.srcObject=await navigator.mediaDevices.getUserMedia({video:!0,audio:!0}),a.innerText="🔵 GÖRSEL AKIŞ AKTİF: AI dünyayı analiz ediyor..."}catch{a.innerText="❌ Kamera erişimi reddedildi veya cihaz bulunamadı."}}();

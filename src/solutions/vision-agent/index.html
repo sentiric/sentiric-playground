@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Vision Agent | Sentiric</title>
-  <script type="module" crossorigin src="/sentiric-playground/assets/vision-agent-BCKkz-IF.js"></script>
-  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/modulepreload-polyfill-DJVeZdMt.js">
-  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/vision-agent-UGKD9Cyt.css">
+    <meta charset="UTF-8"><title>Vision Agent | Sentiric Lab</title>
+  <script type="module" crossorigin src="/sentiric-playground/assets/vision-agent-CkruPlcm.js"></script>
+  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-CUSy79m8.js">
+  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/vision-agent-CItLjxmr.css">
 </head>
 <body>
-    <div class="vision-shell">
-        <header><a href="/sentiric-playground/">← Lab</a> 👁️‍🗨️ Vision Agent (Multi-Modal)</header>
-        <div class="view-grid">
+    <div class="vision-layout">
+        <header>
+            <a href="/sentiric-playground/">← Lab</a>
+            <div class="title">👁️‍🗨️ VISION AGENT <span class="live-tag">BETA</span></div>
+        </header>
+
+        <main class="viewport-container">
             <video id="webcam" autoplay playsinline muted></video>
             <canvas id="overlay"></canvas>
-        </div>
-        <div class="status-bar" id="status">Kamera bekleniyor...</div>
+            
+            <div class="scanner-line"></div>
+            
+            <div id="ai-insights" class="ai-overlay-text">
+                KAMERA ERİŞİMİ BEKLENİYOR...
+            </div>
+        </main>
+
+        <footer class="controls">
+            <button id="cameraBtn">KAMERAYI ETKİNLEŞTİR</button>
+            <div class="telemetry">FPS: <span id="fps">0</span> | OBJECTS: <span id="objCount">0</span></div>
+        </footer>
     </div>
 </body>
 </html>

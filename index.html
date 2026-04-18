@@ -22,14 +22,16 @@
     </style>
 </head>
 <body>
-    <header class="hero">
-        <h1 style="background: linear-gradient(to right, #fff, #4f46e5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sentiric Lab.</h1>
-        <p>Innovation and Future Capabilities of Sentiric OS</p>
-    </header>
-    <main class="grid" id="main-grid"></main>
+<header class="hero">
+    <h1 style="background: linear-gradient(to right, #fff, #4f46e5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sentiric Lab.</h1>
+    <p>Innovation and Future Capabilities <span id="pg-v" style="font-size: 0.7rem; background: #27272a; padding: 2px 6px; border-radius: 4px; color: #a1a1aa; margin-left: 5px;">v...</span></p>
+</header>
+<main class="grid" id="main-grid"></main>
 
-    <script type="module">
-        // [ARCH-COMPLIANCE]: 10 Çözümün tamamı AKTİF ve ÜRETİME HAZIR hale getirildi.
+<script type="module">
+    import { AppConfig } from "./src/lib/sdk-provider";
+    document.getElementById('pg-v').innerText = `v${AppConfig.version}`;
+       // [ARCH-COMPLIANCE]: 10 Çözümün tamamı AKTİF ve ÜRETİME HAZIR hale getirildi.
         const solutions = [
             { id: 'interactive-agent', title: 'Voice Agent', icon: '🤖', desc: 'Full-duplex, VAD ve Barge-in destekli akıllı sesli asistan.' },
             { id: 'cognitive-mirror', title: 'Cognitive Mirror', icon: '🧠', desc: 'Bilişsel haritalama ve otonom hafıza kartları vizyonu.' },
@@ -58,6 +60,6 @@
             `;
             grid.appendChild(card);
         });
-    </script>
+</script>
 </body>
 </html>

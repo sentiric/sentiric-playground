@@ -2,11 +2,10 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import { glob } from "glob";
+import pkg from "./package.json";
 
 const getEntries = () => {
-  const entries = {
-    main: resolve(__dirname, "index.html"),
-  };
+  const entries = { main: resolve(__dirname, "index.html") };
   const solutionFiles = glob.sync("src/solutions/**/index.html");
   solutionFiles.forEach((file) => {
     const parts = file.split("/");
@@ -19,9 +18,11 @@ const getEntries = () => {
 export default defineConfig({
   base: "/sentiric-playground/",
   define: {
-    __SDK_URL__: JSON.stringify(
-      "https://sentiric.github.io/sentiric-stream-sdk/stream-sdk.js",
-    ),
+    // Merkezi Konfigürasyon ve Versiyon Bilgileri
+    __SDK_URL__: JSON.stringify("https://sentiric.github.io/sentiric-stream-sdk/stream-sdk.js"),
+    __GATEWAY_URL__: JSON.stringify(process.env.VITE_GATEWAY_URL || "wss://http-stream-gateway-service-sentiric.azmisahin.com/ws"),
+    __DEFAULT_TENANT__: JSON.stringify("demo"),
+    __PG_VERSION__: JSON.stringify(pkg.version)
   },
   resolve: {
     alias: {
@@ -30,16 +31,8 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
-      input: getEntries(),
-    },
+    rollupOptions: { input: getEntries() },
     minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
     outDir: "dist",
   },
 });

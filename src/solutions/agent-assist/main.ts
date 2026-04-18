@@ -1,21 +1,32 @@
-import { getSentiricClient } from "@lib/sdk-provider";
-const suggestBox = document.getElementById("suggestions")!;
+import {
+  getSentiricClient,
+  AppConfig,
+  injectVersionInfo,
+} from "../../lib/sdk-provider";
+const btn = document.getElementById("micBtn")!;
+const log = document.getElementById("transcript")!;
+let client: any = null;
 
-async function startAssist() {
+// Versiyon bilgisini sağ alt köşeye enjekte et
+injectVersionInfo(document.body);
+
+btn.onclick = async () => {
+  if (client) {
+    client.stop();
+    client = null;
+    btn.classList.remove("active");
+    return;
+  }
+
   const SDK = await getSentiricClient();
-  const client = new SDK({
-    gatewayUrl: "wss://http-stream-gateway-service-sentiric.azmisahin.com/ws",
-    tenantId: "demo",
-    listenOnlyMode: true,
+  client = new SDK({
+    gatewayUrl: AppConfig.gatewayUrl, // Merkezi URL
+    tenantId: AppConfig.tenantId, // Merkezi Tenant
     onTranscript: (t: any) => {
-      if (t.isFinal) {
-        const s = document.createElement("div");
-        s.className = "suggestion-card";
-        s.innerHTML = `<strong>Öneri:</strong> ${t.text} konusuyla ilgili müşteri temsilcisine şu bilgiyi ver...`;
-        suggestBox.prepend(s);
-      }
+      log.innerText = t.text;
     },
   });
+
   await client.start();
-}
-startAssist();
+  btn.classList.add("active");
+};

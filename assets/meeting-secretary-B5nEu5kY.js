@@ -1,1 +1,0 @@
-import{n as t}from"./sdk-provider-CUSy79m8.js";var a=document.getElementById("transcript");!async function(){await new(await t())({gatewayUrl:"wss://http-stream-gateway-service-sentiric.azmisahin.com/ws",tenantId:"demo",listenOnlyMode:!0,onTranscript:t=>{t.isFinal&&(a.innerHTML+=`<p>${t.text}</p>`)}}).start()}();

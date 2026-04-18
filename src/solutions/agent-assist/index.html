@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Agent Assist | Sentiric</title>
+    <meta charset="UTF-8"><title>Agent Assist | Sentiric Lab</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div class="assist-ui">
-        <header><a href="/sentiric-playground/">← Lab</a> 🎧 Agent Assist (Whisper Mode)</header>
-        <div id="suggestions" class="card-stack"></div>
+    <div class="assist-layout">
+        <aside class="whisper-sidebar">
+            <div class="label">🎧 AI FISILTILARI (WHISPERS)</div>
+            <div id="suggestions" class="card-stack">
+                <div class="hint-text">Müşteri konuşmaya başladığında öneriler burada belirecek...</div>
+            </div>
+        </aside>
+
+        <main class="main-monitor">
+            <header>
+                <a href="/sentiric-playground/">← Lab</a>
+                <h1>Agent Dashboard</h1>
+                <button id="startAssistBtn">YARDIMI BAŞLAT</button>
+            </header>
+
+            <section class="live-transcript">
+                <div class="label">🔴 CANLI GÖRÜŞME DÖKÜMÜ</div>
+                <div id="liveLog" class="transcript-scroll"></div>
+            </section>
+        </main>
     </div>
     <script type="module" src="./main.ts"></script>
 </body>

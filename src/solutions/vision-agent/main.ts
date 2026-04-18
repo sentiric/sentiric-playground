@@ -1,5 +1,5 @@
 // [ARCH-COMPLIANCE] SOP-01: Multi-modal Vision Interface
-import { AppConfig, injectVersionInfo } from "@lib/sdk-provider";
+import { injectVersionInfo } from "@lib/sdk-provider";
 
 const elements = {
   video: document.getElementById("webcam") as HTMLVideoElement,

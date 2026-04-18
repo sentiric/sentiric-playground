@@ -21,14 +21,12 @@ export async function getSentiricClient(): Promise<any> {
     const Client =
       module.SentiricStreamClient || (window as any).SentiricStreamClient;
 
-    // SDK Versiyonunu bizzat sınıftan alıp güncelliyoruz
     if (Client && Client.VERSION) {
       AppConfig.sdkVersion = Client.VERSION;
       const vEl = document.getElementById("pg-v");
       if (vEl)
         vEl.innerText = `PG v${AppConfig.version} | SDK v${AppConfig.sdkVersion}`;
     }
-
     return Client;
   } catch (error) {
     console.error("FATAL_SDK_BRIDGE", error);
@@ -36,7 +34,6 @@ export async function getSentiricClient(): Promise<any> {
   }
 }
 
-// [YENİ]: Her çözümün altına "Kopyala" butonu ekleyen Observer Widget
 export function injectVersionInfo(container: HTMLElement) {
   const wrapper = document.createElement("div");
   wrapper.style.cssText =
@@ -45,21 +42,23 @@ export function injectVersionInfo(container: HTMLElement) {
   const copyBtn = document.createElement("button");
   copyBtn.innerText = "📋 LOGLARI KOPYALA (SUTS v4)";
   copyBtn.style.cssText =
-    "font-size:9px; background:#18181b; color:#10b981; border:1px solid #27272a; padding:4px 8px; border-radius:4px; cursor:pointer;";
-  copyBtn.onclick = async () => {
-    const SDK = await getSentiricClient();
-    // SDK modülündeki Logger'dan veriyi çek
-    const logs = (window as any).SentiricStreamClient?.VERSION
-      ? (window as any).SentiricStreamClient.VERSION
-      : "LOGS_PENDING";
-    // Not: Burada SDK index.ts'de Logger'ı da export etmeliyiz. Şimdilik manuel window kontrolü:
-    const flightData = (window as any).sentiric_logs || "Henüz log oluşmadı.";
-    navigator.clipboard.writeText(flightData);
-    copyBtn.innerText = "✅ KOPYALANDI!";
-    setTimeout(
-      () => (copyBtn.innerText = "📋 LOGLARI KOPYALA (SUTS v4)"),
-      2000,
-    );
+    "font-size:9px; background:#18181b; color:#10b981; border:1px solid #27272a; padding:4px 8px; border-radius:4px; cursor:pointer; font-weight:bold;";
+
+  copyBtn.onclick = () => {
+    // [FIX]: Global köprüden (SentiricLogger) veriyi çek
+    const Logger = (window as any).SentiricLogger;
+    if (Logger && typeof Logger.getFlightLog === "function") {
+      const flightData = Logger.getFlightLog();
+      navigator.clipboard.writeText(flightData);
+      copyBtn.innerText = "✅ KOPYALANDI!";
+    } else {
+      copyBtn.innerText = "⚠️ SDK YÜKLENMEDİ";
+      copyBtn.style.color = "#f59e0b";
+    }
+    setTimeout(() => {
+      copyBtn.innerText = "📋 LOGLARI KOPYALA (SUTS v4)";
+      copyBtn.style.color = "#10b981";
+    }, 2000);
   };
 
   const info = document.createElement("div");

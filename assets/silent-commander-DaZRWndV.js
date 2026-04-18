@@ -1,0 +1,1 @@
+import{n as t}from"./sdk-provider-adF_eKaD.js";var a=document.getElementById("cmdLog");!async function(){await new(await t())({gatewayUrl:"wss://http-stream-gateway-service-sentiric.azmisahin.com/ws",tenantId:"demo",systemPromptId:"PROMPT_COMMANDER",onTranscript:t=>{t.isFinal&&(a.innerHTML+=`<br>[EXEC]: ${t.text}`)}}).start()}();

@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Agent Assist | Sentiric</title>
-  <script type="module" crossorigin src="/sentiric-playground/assets/agent-assist-CT33C0vQ.js"></script>
-  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-B4CKOBtL.js">
-  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/agent-assist-m-AIyC2u.css">
+    <meta charset="UTF-8"><title>Agent Assist | Sentiric Lab</title>
+  <script type="module" crossorigin src="/sentiric-playground/assets/agent-assist-Bmli4Ycw.js"></script>
+  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-adF_eKaD.js">
+  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/agent-assist-CutZpxAG.css">
 </head>
 <body>
-    <div class="assist-ui">
-        <header><a href="/sentiric-playground/">← Lab</a> 🎧 Agent Assist (Whisper Mode)</header>
-        <div id="suggestions" class="card-stack"></div>
+    <div class="assist-layout">
+        <aside class="whisper-sidebar">
+            <div class="label">🎧 AI FISILTILARI (WHISPERS)</div>
+            <div id="suggestions" class="card-stack">
+                <div class="hint-text">Müşteri konuşmaya başladığında öneriler burada belirecek...</div>
+            </div>
+        </aside>
+
+        <main class="main-monitor">
+            <header>
+                <a href="/sentiric-playground/">← Lab</a>
+                <h1>Agent Dashboard</h1>
+                <button id="startAssistBtn">YARDIMI BAŞLAT</button>
+            </header>
+
+            <section class="live-transcript">
+                <div class="label">🔴 CANLI GÖRÜŞME DÖKÜMÜ</div>
+                <div id="liveLog" class="transcript-scroll"></div>
+            </section>
+        </main>
     </div>
 </body>
 </html>

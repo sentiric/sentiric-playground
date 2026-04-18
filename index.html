@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentiric OS | Innovation Lab</title>
+    <style>
+      :root {
+        --bg: #09090b;
+        --card: #18181b;
+        --primary: #3b82f6;
+        --text: #f4f4f5;
+        --muted: #a1a1aa;
+      }
+      body {
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        margin: 0;
+        color: var(--primary);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1000px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid #27272a;
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-decoration: none;
+        color: inherit;
+        transition: 0.2s;
+      }
+      .card:hover {
+        border-color: var(--primary);
+        transform: translateY(-3px);
+      }
+      .card h3 {
+        margin: 0.5rem 0;
+      }
+      .card p {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin: 0;
+      }
+    </style>
+    <script type="module" crossorigin src="/sentiric-playground/assets/main-TJM1nSFz.js"></script>
+    <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/modulepreload-polyfill-DLrgkSPK.js">
+  </head>
+  <body>
+    <div class="hero">
+      <h1>Innovation Lab</h1>
+      <p>Sentiric OS için geliştirilen otonom yetenekler ve çözümler.</p>
+    </div>
+    <div class="grid" id="solutions-grid"></div>
+
+  </body>
+</html>

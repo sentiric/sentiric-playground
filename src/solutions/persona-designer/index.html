@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8"><title>Persona Designer | Sentiric</title>
-  <script type="module" crossorigin src="/sentiric-playground/assets/persona-designer-2eGmNJP0.js"></script>
-  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-Cwtw1GUL.js">
-  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/persona-designer-U-rNaNR5.css">
+    <meta charset="UTF-8"><title>Persona Designer | Sentiric Lab</title>
+  <script type="module" crossorigin src="/sentiric-playground/assets/persona-designer-DiSNjWv6.js"></script>
+  <link rel="modulepreload" crossorigin href="/sentiric-playground/assets/sdk-provider-DD0XwOto.js">
+  <link rel="stylesheet" crossorigin href="/sentiric-playground/assets/persona-designer-t8J5_erU.css">
 </head>
 <body>
     <div class="designer-layout">
-        <section class="settings">
-            <h3>🎭 Karakter Ayarları</h3>
-            <label>Sistem Promptu</label>
-            <textarea id="sysPrompt">Sen yardımsever bir asistansın...</textarea>
-            <label>Ses Karakteri (TTS)</label>
-            <select id="voiceId">
-                <option value="omnivoice:female">Kurumsal Kadın</option>
-                <option value="omnivoice:male">Otoriter Erkek</option>
-            </select>
-            <button id="testBtn">TESTİ BAŞLAT</button>
-        </section>
-        <section class="preview">
-            <h3>🎧 Canlı Deneyim</h3>
-            <div id="chat"></div>
-        </section>
+        <aside class="studio-panel">
+            <header>
+                <a href="/sentiric-playground/">← Lab</a>
+                <h1>PERSONA STUDIO</h1>
+            </header>
+
+            <div class="settings-form">
+                <label>Kişilik Tanımı (System Prompt)</label>
+                <textarea id="sysPrompt" placeholder="Örn: Sen neşeli bir barista asistanısın...">Sen yardımsever ve profesyonel bir Sentiric asistanısın.</textarea>
+                
+                <label>Ses Karakteri (TTS Voice)</label>
+                <select id="voiceId">
+                    <option value="omnivoice:F_TR_Parlak_Zeynep/neutral">Zeynep (Parlak/Kurumsal)</option>
+                    <option value="omnivoice:M_TR_Otoriter_Can/deep">Can (Derin/Otoriter)</option>
+                    <option value="omnivoice:F_TR_Yumusak_Elif/calm">Elif (Sakin/Yumuşak)</option>
+                </select>
+
+                <button id="applyBtn">TASARIMI UYGULA VE BAŞLAT</button>
+            </div>
+        </aside>
+
+        <main class="preview-panel">
+            <div id="preview-status" class="preview-label">LIVE PREVIEW: STANDBY</div>
+            <div id="chat-stream" class="chat-flow"></div>
+            <div class="mic-hint">Tasarımı uyguladıktan sonra konuşmaya başlayın.</div>
+        </main>
     </div>
 </body>
 </html>

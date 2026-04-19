@@ -38,7 +38,8 @@ async function toggleCommander() {
     elements.btn.classList.add("active");
     log("> VOICE LINK ESTABLISHED.");
     elements.aiStatus.innerText = "LISTENING";
-  } catch (err) {
+    // [ARCH-COMPLIANCE] SOP-01: Remove unused variables to satisfy strict linter
+  } catch {
     log("!! ACCESS DENIED: MIC ERROR");
   }
 }
